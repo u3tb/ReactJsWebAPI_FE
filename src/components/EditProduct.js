@@ -115,30 +115,30 @@ export default function EditProduct({ match, location }) {
                     <Paper className={classes.paper}>
                         <Typography className={classes.title} variant="h4">
                             Edit Product
-                    </Typography>
+                        </Typography>
                         <Grid item xs={12} sm container>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Title
-                            </Typography>
+                                </Typography>
                                 <TextField id="Title" onChange={handleChangeTitle} value={title} name="Title" variant="outlined" className={classes.txtInput} size="small" />
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Body
-                            </Typography>
+                                </Typography>
                                 <TextField id="outlined-multiline-static" onChange={handleChangeBody} defaultValue={body} name="Body" className={classes.txtInput} multiline rows={4} variant="outlined" />
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Slug
-                            </Typography>
+                                </Typography>
                                 <TextField id="Slug" onChange={handleChangeSlug} value={slug} name="Slug" variant="outlined" className={classes.txtInput} size="small" />
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Choose Category
-                            </Typography>
+                                </Typography>
                                 <TextField
                                     id="outlined-select-currency-native"
                                     name="idCategory"
@@ -163,7 +163,7 @@ export default function EditProduct({ match, location }) {
                             <Grid item xs={12}>
                                 <Button type="button" onClick={EditProduct} fullWidth variant="contained" color="primary" className={classes.submit} >
                                     Update product
-                            </Button>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Paper>

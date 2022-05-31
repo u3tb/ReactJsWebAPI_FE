@@ -31,8 +31,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
     const classes = useStyles();
     const [products, setProducts] = useState({}); //sử dụng useStates trong react hook để set/update giá trị cho state là products
-    const [checkDeleteProduct, setCheckDeleteProduct] = useState(false); //khởi tạo giá trị cho state checkDeleteProduct là false.
+    const [checkDeleteProduct, setCheckDeleteProduct] = useState(false); //khởi tạo giá trị cho state checkDeleteProduct là false, khi nào xóa thành công thì mới set true để hiển thị element Alert.
     const [close, setClose] = React.useState(false);
+
+    //useState establishes state in a functional component
+   let [showSecret, setShowSecret] = useState(0)
+
     useEffect(() => {
         /* GET ALL PRODUCTS */
         GET_ALL_PRODUCTS(`products`).then(item => setProducts(item.data)) //giá trị trả về sẽ được hàm setProducts update giá trị cho state tên products.
@@ -60,7 +64,7 @@ export default function Home() {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        {checkDeleteProduct && <Alert
+                        {checkDeleteProduct && <Alert   /* sẽ hiển thị nếu checkDeleteProduct là true */
                             action={
                                 <IconButton
                                     aria-label="close"
@@ -88,7 +92,7 @@ export default function Home() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {products.length > 0 && products.map((row) => (
+                                    {products.length > 0 && products.map((row) => (  /* products.length > 0 thì mới hiển thị các row */
                                         <TableRow key={row.idProduct}>
                                             <TableCell component="th" scope="row">{row.title}</TableCell>
                                             <TableCell align="left">{RawHTML(row.body, "body")}</TableCell>
@@ -96,21 +100,39 @@ export default function Home() {
                                             <TableCell align="center">{row.category.name}</TableCell>
                                             <TableCell align="center">
                                                 <Link to={`/edit/product/${row.idProduct}`} className={classes.removeLink}>
-                                                    <Button size="small" variant="contained" color="primary">Edit</Button></Link>
+                                                    <Button size="small" variant="contained" color="primary">Edit</Button>
+                                                </Link>
                                             </TableCell>
                                             <TableCell align="center">
-
                                                 <Button size="small" variant="contained" color="secondary" onClick={() => deleteProductID(row.idProduct)}>Remove</Button>
-
                                             </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <div hidden> new content is hidden</div> {/* thuộc tính hidden chỉ áp dụng được cho html element not for mui.com */}
+                        
+                        {/* form to tranfer data from child to parent component */}
+                        <div>
+                            <h3>Tranfer data from child to parent component</h3>
+                            <Greeting name='NNHoa' displaySecrete={setShowSecret}/>
+                            {/* will show a message once state is true */}
+                            {showSecret ? <p>Secret: You just went Against the Flow done!!!</p> : <p></p>}
+                        </div>
+                        
                     </Paper>
                 </Grid>
             </Grid>
         </div>
     )
 }
+
+/* create child component to call from parent component and transfer data from child to parent */
+function Greeting(props){
+    return(<div>
+       <p>Hi there {props.name} </p> 
+       {/*clicking button will update state of the parent component and show the secret in the parent component */}
+       <Button variant="contained" color="success" onClick={()=> props.displaySecrete(1)}>Show Secret</Button>
+    </div>)
+ }
