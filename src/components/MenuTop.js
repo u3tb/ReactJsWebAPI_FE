@@ -45,9 +45,13 @@ export default function MenuTop() {
             open={isMenuOpen} y
 
             onClose={handleMenuClose}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+
         >
-            <MenuItem onClick={handleMenuClose}><Link to="/products" className={classes.linkTo}>Product</Link></MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to="/categories" className={classes.linkTo}>Categories</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to="/products" className={classes.linkTo}>Add Product</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to="/categories" className={classes.linkTo}>Add Categories</Link></MenuItem>
         </Menu>
     );
     return (
@@ -63,7 +67,7 @@ export default function MenuTop() {
                     <IconButton edge="end" color="inherit" aria-label="MoreVert" aria-controls={menuId}
                         aria-haspopup="true"
                         onClick={handleProfileMenuOpen}>
-                        <MoreVertIcon />
+                        <MoreVertIcon /> {/* 3 dấu chấm dọc */}
                     </IconButton>
                 </Toolbar>
             </AppBar>

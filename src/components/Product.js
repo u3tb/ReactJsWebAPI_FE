@@ -56,7 +56,6 @@ const currencies = [
 ];
 
 export default function Product() {
-    debugger;
     const classes = useStyles();
     /* SET ATTRIBUTE FORM ADD PRODUCT */
     const [checkAdd, setCheckAdd] = useState(false);
@@ -69,7 +68,7 @@ export default function Product() {
     /* BEFORE RUN */
     useEffect(() => {
         /* GET API CATEGORIES */
-        GET_ALL_CATEGORIES('categories').then(item => {
+        GET_ALL_CATEGORIES('categories').then(item => {  /*goi ra san de đưa vào ds select box*/
             setCategories(item.data);
         });
 
@@ -123,18 +122,18 @@ export default function Product() {
                     <Paper className={classes.paper}>
                         <Typography className={classes.title} variant="h4">
                             Add Product
-                    </Typography>
+                        </Typography>
                         <Grid item xs={12} sm container>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Title
-                            </Typography>
+                                </Typography>
                                 <TextField id="Title" onChange={handleChangeTitle} name="Title" label="Title" variant="outlined" className={classes.txtInput} size="small" />
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Body
-                            </Typography>
+                                </Typography>
                                 <TextField id="outlined-multiline-static" onChange={handleChangeBody} label="Body" name="Body" className={classes.txtInput} multiline rows={4} defaultValue="Body" variant="outlined" />
                             </Grid>
                             <Grid item xs={12}>
@@ -146,7 +145,7 @@ export default function Product() {
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="subtitle1">
                                     Choose Category
-                            </Typography>
+                                </Typography>
                                 <TextField
                                     id="outlined-select-currency-native"
                                     name="idCategory"
@@ -171,7 +170,7 @@ export default function Product() {
                             <Grid item xs={12}>
                                 <Button type="button" onClick={addProduct} fullWidth variant="contained" color="primary" className={classes.submit} >
                                     Add product
-                            </Button>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Paper>

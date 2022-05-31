@@ -28,3 +28,6 @@ export function DELETE_PRODUCT_ID(endpoint) {
 export function GET_ALL_CATEGORIES(endpoint) {
     return callApi(endpoint, "GET");
 }
+export function POST_ADD_CATEGORY(endpoint, data) {
+    return callApi(endpoint, "POST", data);
+}
