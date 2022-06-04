@@ -7,14 +7,48 @@ import { Redirect } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Link } from 'react-router-dom'
+
 import { GET_ALL_PRODUCTS, DELETE_PRODUCT_ID } from '../api/apiService';
+
+import Greeting from './Greeting';
+//
+//Import immutability-helper
+import update from "immutability-helper";
+//Material UI components
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+
+//Import our Inputs
+import InputOne from "./Input_one";
+import InputTwo from "./Input_two";
+import { Row } from 'react-bootstrap';
+
+
+// Create context object
+export const AppContext = React.createContext();  
+
+// Set up Initial State
+const initialState = {
+  inputText: "",
+  testText: "just test part!!!"
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "UPDATE_INPUT":  //đúng type là UPDATE_INPUT thì mới thực hiện update state
+      return update(state, { inputText: { $set: action.data } });  //update giá trị mới cho biến state, từ đó cập nhật lại vào component Input_one và Input_two
+    default:
+      return initialState;
+  }
+}
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -29,6 +63,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 export default function Home() {
+    const [state, dispatch] = React.useReducer(reducer, initialState);  //dùng useReducer gọi tới hàm reducer để cập nhật state kiểu UPDATE_INPUT
+
     const classes = useStyles();
     const [products, setProducts] = useState({}); //sử dụng useStates trong react hook để set/update giá trị cho state là products
     const [checkDeleteProduct, setCheckDeleteProduct] = useState(false); //khởi tạo giá trị cho state checkDeleteProduct là false, khi nào xóa thành công thì mới set true để hiển thị element Alert.
@@ -89,6 +125,7 @@ export default function Home() {
                                         <TableCell align="center">Category</TableCell>
                                         <TableCell align="center">Modify</TableCell>
                                         <TableCell align="center">Delete</TableCell>
+                                        <TableCell align="center">Action</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -106,6 +143,13 @@ export default function Home() {
                                             <TableCell align="center">
                                                 <Button size="small" variant="contained" color="secondary" onClick={() => deleteProductID(row.idProduct)}>Remove</Button>
                                             </TableCell>
+                                            <TableCell align="center">
+                                                <Link to={{pathname:`/selected-product`,
+                                                            state: row}} className={classes.removeLink}>
+                                                    <Button size="small" variant="contained" color="primary">Choose</Button>
+                                                </Link>
+                                                {/* <Button size="small" variant="contained" color="success" onClick={() => deleteProductID(row.idProduct)}>Choose</Button> */}
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -118,8 +162,45 @@ export default function Home() {
                             <h3>Tranfer data from child to parent component</h3>
                             <Greeting name='NNHoa' displaySecrete={setShowSecret}/>
                             {/* will show a message once state is true */}
-                            {showSecret ? <p>Secret: You just went Against the Flow done!!!</p> : <p></p>}
+                            {showSecret ? <p>Secret: You just went Against the Flow from child to parent done!!!</p> : <p></p>}
                         </div>
+
+                        {/* truyền dữ liệu giữa 2 sibling component */}
+                        {/*Title*/}
+                        <Toolbar>
+                            <Typography
+                            component="h2"
+                            variant="h5"
+                            color="inherit"
+                            align="center"
+                            noWrap
+                            className={classes.toolbarTitle}
+                            >
+                            Pass data between react sibling components
+                            </Typography>
+                        </Toolbar>
+
+                        {/*Inputs*/}
+                        <Grid container spacing={1}>
+                            <AppContext.Provider value={{ state, dispatch }}>
+                            <InputOne />
+                            <InputTwo />
+                            </AppContext.Provider>
+                        </Grid>
+
+                        {/*display testText value*/}
+                        <Toolbar>
+                            <Typography
+                            component="h2"
+                            variant="h5"
+                            color="inherit"
+                            align="center"
+                            noWrap
+                            className={classes.toolbarTitle}
+                            >
+                            {state.testText}
+                            </Typography>
+                        </Toolbar>
                         
                     </Paper>
                 </Grid>
@@ -128,11 +209,4 @@ export default function Home() {
     )
 }
 
-/* create child component to call from parent component and transfer data from child to parent */
-function Greeting(props){
-    return(<div>
-       <p>Hi there {props.name} </p> 
-       {/*clicking button will update state of the parent component and show the secret in the parent component */}
-       <Button variant="contained" color="success" onClick={()=> props.displaySecrete(1)}>Show Secret</Button>
-    </div>)
- }
+

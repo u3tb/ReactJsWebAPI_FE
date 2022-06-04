@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Navigate  } from 'react-router-dom';
 
 /*Import api */
 import { GET_ALL_CATEGORIES, GET_PRODUCT_ID, PUT_EDIT_PRODUCT } from '../api/apiService';

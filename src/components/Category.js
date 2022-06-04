@@ -6,7 +6,7 @@
  import { GET_ALL_PRODUCTS, POST_ADD_CATEGORY } from '../api/apiService';
  import { Paper, Typography,TextField, Button} from '@material-ui/core';
 //  import { Autocomplete } from '@mui/material'; /* autocomplete material-ui element */
- import { Redirect } from 'react-router-dom';
+ import { Redirect, Navigate  } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +82,7 @@ export default function Category() {
     }
     /* CHECK setAdd, if true redirect to Home component */
     if (checkAdd) {
-        return <Redirect  to="/" />
+        return <Redirect   to="/" />
     }
 
     return (
