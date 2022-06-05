@@ -65,28 +65,31 @@ function App() {
         <React.Fragment>
         <CssBaseline />
         <MenuTop />
-        <Container maxWidth="md">
+        {/* <Container maxWidth="md">
             <Route exact path='/' component={Home} />
             <Route path='/home' component={Home} />
             <Route path='/products' component={Product} />
             <Route path='/edit/product/:id' component={EditProduct} />
             <Route path='/categories' component={Category} />
             <Route path='/selected-product' component={SelectedProduct} />
-        </Container>
-      
-        {/* <Container>
-            <Routes>
-                <Route path="/" element={<Home/>}>
-                    <Route path="/home" element={<Home/>} />
-                    <Route path="/products" element={<Product />} />
-                    <Route path="/edit/product/:id" element={<EditProduct />} />
-                    <Route path= "/categories" element={<Category />} />
-                    <Route path= "/selected-product" element={<SelectedProduct />} />
-                </Route>
-            </Routes>
         </Container> */}
-        
-        
+      
+        <Container>
+            <div style={{padding: 30}}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home/>} />
+                    <Route path="/products" element={<Product />} /> 
+                    <Route path="/products/:id" element={<EditProduct />} />
+                    {/* <Route path="/products" element={<Product />} > 
+                        <Route path=":id" element={<EditProduct />} />
+                    </Route> */}
+                    {/* <Route path="/edit/product/:id" element={<EditProduct />} /> */}
+                    <Route path= "/categories" element={<Category />} />
+                    <Route path="/selected-product" element={<SelectedProduct />} />
+                </Routes>
+            </div>
+        </Container>
     </React.Fragment>
     );
   }   

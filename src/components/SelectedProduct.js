@@ -5,8 +5,10 @@ import { useLocation } from 'react-router-dom';
 
 /* create child component to call from parent component and transfer data from child to parent */
 export default function SelectedProduct(props){
-    // const { state } = useLocation();
-   
+    const location = useLocation();
+  const state = location.state;
+  console.log(state);
+    // const { state } = useLocation();   
     // console.log(state);
     return(
         <React.Fragment>

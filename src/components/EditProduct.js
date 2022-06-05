@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-import { Redirect, Navigate  } from 'react-router-dom';
+import { Redirect, Navigate, useParams   } from 'react-router-dom';
 
 /*Import api */
 import { GET_ALL_CATEGORIES, GET_PRODUCT_ID, PUT_EDIT_PRODUCT } from '../api/apiService';
@@ -47,12 +47,16 @@ export default function EditProduct({ match, location }) {
     const [category, setCategory] = useState(0);
     const [categories, setCategories] = useState({});
 
+    let params = useParams();  //lấy id truyền qua từ Url
+    console.log("param",params);
+
     /* BEFORE RUN */
     useEffect(() => {
-        //console.log(location)
-        //console.log(match.params.id)
+        // console.log("gt location",location)
+        // console.log("match",match.params.id);
+        
         /* GET PRODUCT ID */
-        GET_PRODUCT_ID(`products`, match.params.id).then(product => {
+        GET_PRODUCT_ID(`products`, params.id).then(product => {
             setIdProduct(product.data.idProduct)
             setTitle(product.data.title);
             setBody(product.data.body);
@@ -105,7 +109,7 @@ export default function EditProduct({ match, location }) {
     if (checkUpdate) {
         // return <Redirect to="/" />
         //Navigate 
-        return <Redirect  to="/" />
+        return <Navigate  to="/" />
     }
 
     return (

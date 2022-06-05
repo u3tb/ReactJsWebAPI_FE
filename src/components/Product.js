@@ -112,7 +112,7 @@ export default function Product() {
     /* CHECK setAdd, if true redirect to Home component */
     if (checkAdd) {
         // return <Redirect to="/" />
-        return <Redirect  to="/" />
+        return <Navigate  to="/" />
     }
 
     return (

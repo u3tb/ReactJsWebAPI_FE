@@ -136,16 +136,18 @@ export default function Home() {
                                             <TableCell align="center">{row.slug}</TableCell>
                                             <TableCell align="center">{row.category.name}</TableCell>
                                             <TableCell align="center">
-                                                <Link to={`/edit/product/${row.idProduct}`} className={classes.removeLink}>
+                                                <Link to={`/products/${row.idProduct}`} className={classes.removeLink}>
                                                     <Button size="small" variant="contained" color="primary">Edit</Button>
                                                 </Link>
+                                                {/* <Link to={`/edit/product/${row.idProduct}`} className={classes.removeLink}>
+                                                    <Button size="small" variant="contained" color="primary">Edit</Button>
+                                                </Link> */}
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Button size="small" variant="contained" color="secondary" onClick={() => deleteProductID(row.idProduct)}>Remove</Button>
                                             </TableCell>
                                             <TableCell align="center">
-                                                <Link to={{pathname:`/selected-product`,
-                                                            state: row}} className={classes.removeLink}>
+                                                <Link to="/selected-product" state={products} className={classes.removeLink}>
                                                     <Button size="small" variant="contained" color="primary">Choose</Button>
                                                 </Link>
                                                 {/* <Button size="small" variant="contained" color="success" onClick={() => deleteProductID(row.idProduct)}>Choose</Button> */}

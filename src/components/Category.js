@@ -82,7 +82,7 @@ export default function Category() {
     }
     /* CHECK setAdd, if true redirect to Home component */
     if (checkAdd) {
-        return <Redirect   to="/" />
+        return <Navigate   to="/" />
     }
 
     return (
